@@ -6,7 +6,7 @@ import 'package:mealsapp/screen/categories.dart';
 final theme = ThemeData(
   colorScheme: ColorScheme.fromSeed(
     brightness: Brightness.dark,
-    seedColor: const Color.fromARGB(255, 131, 57, 0),
+    seedColor: const Color.fromARGB(255, 131, 59, 4),
   ),
   textTheme: GoogleFonts.latoTextTheme(),
 );
