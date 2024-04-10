@@ -20,28 +20,23 @@ class GategorieScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Pick Youer Gategory'),
+    return GridView(
+      padding: const EdgeInsets.all(16),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        childAspectRatio: 3 / 2,
+        crossAxisSpacing: 20,
+        mainAxisSpacing: 20,
       ),
-      body: GridView(
-        padding: const EdgeInsets.all(16),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          childAspectRatio: 3 / 2,
-          crossAxisSpacing: 20,
-          mainAxisSpacing: 20,
-        ),
-        children: [
-          for (final category in availableCategories)
-            CategoryGridIdem(
-              onSelectedCategory: () {
-                selecterCategory(context, category);
-              },
-              category: category,
-            )
-        ],
-      ),
+      children: [
+        for (final category in availableCategories)
+          CategoryGridIdem(
+            onSelectedCategory: () {
+              selecterCategory(context, category);
+            },
+            category: category,
+          )
+      ],
     );
   }
 }

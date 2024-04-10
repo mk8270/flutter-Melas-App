@@ -12,14 +12,59 @@ class MealDetails extends StatelessWidget {
       appBar: AppBar(
         title: Text(meal.title),
       ),
-      body: Column(children: [
-        Image.network(
-          meal.imageUrl,
-          fit: BoxFit.cover,
-          height: 300,
-          width: double.infinity,
-        )
-      ]),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Image.network(
+              meal.imageUrl,
+              fit: BoxFit.cover,
+              height: 300,
+              width: double.infinity,
+            ),
+            const SizedBox(
+              height: 14,
+            ),
+            Text(
+              'Ingredients',
+              style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                  color: Theme.of(context).colorScheme.primary,
+                  fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(
+              height: 14,
+            ),
+            for (final ingredient in meal.ingredients)
+              Text(
+                ingredient,
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                    color: Theme.of(context).colorScheme.onBackground),
+              ),
+            const SizedBox(
+              height: 24,
+            ),
+            Text(
+              'Stpes',
+              style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                  color: Theme.of(context).colorScheme.primary,
+                  fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(
+              height: 14,
+            ),
+            for (final stpe in meal.steps)
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                child: Text(
+                  textAlign: TextAlign.center,
+                  stpe,
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                      color: Theme.of(context).colorScheme.onBackground),
+                ),
+              )
+          ],
+        ),
+      ),
     );
   }
 }
