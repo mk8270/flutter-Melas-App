@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:mealsapp/data/dummy_data.dart';
 import 'package:mealsapp/models/category.dart';
+import 'package:mealsapp/models/meals.dart';
 import 'package:mealsapp/screen/mealscreen.dart';
 import 'package:mealsapp/widgets/category_grid_item.dart';
 
 class GategorieScreen extends StatelessWidget {
-  const GategorieScreen({super.key});
+  const GategorieScreen({super.key, required this.doggleMealStasus});
+  final void Function(Meal meal) doggleMealStasus;
 
   void selecterCategory(BuildContext context, Category category) {
     final filterMeals = dummyMeals
@@ -13,6 +15,7 @@ class GategorieScreen extends StatelessWidget {
         .toList();
     Navigator.of(context).push(MaterialPageRoute(
         builder: (ctx) => MealsScreen(
+              doggleMealStatus: doggleMealStasus,
               title: category.title,
               meal: filterMeals,
             )));

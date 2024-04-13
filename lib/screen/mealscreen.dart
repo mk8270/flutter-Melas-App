@@ -4,15 +4,21 @@ import 'package:mealsapp/screen/meal_details.dart';
 import 'package:mealsapp/widgets/meals_item.dart';
 
 class MealsScreen extends StatelessWidget {
-  const MealsScreen({super.key, this.title, required this.meal});
+  const MealsScreen(
+      {super.key,
+      this.title,
+      required this.meal,
+      required this.doggleMealStatus});
 
   final String? title;
   final List<Meal> meal;
+  final void Function(Meal meal) doggleMealStatus;
 
   void selectMeal(BuildContext context, Meal meal) {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (ctx) => MealDetails(
+          doggleMealStasus: doggleMealStatus,
           meal: meal,
         ),
       ),
