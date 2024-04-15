@@ -6,11 +6,13 @@ import 'package:mealsapp/screen/mealscreen.dart';
 import 'package:mealsapp/widgets/category_grid_item.dart';
 
 class GategorieScreen extends StatelessWidget {
-  const GategorieScreen({super.key, required this.doggleMealStasus});
+  const GategorieScreen(
+      {super.key, required this.doggleMealStasus, required this.avaibleMeals});
   final void Function(Meal meal) doggleMealStasus;
+  final List<Meal> avaibleMeals;
 
   void selecterCategory(BuildContext context, Category category) {
-    final filterMeals = dummyMeals
+    final filterMeals = avaibleMeals
         .where((element) => element.categories.contains(category.id))
         .toList();
     Navigator.of(context).push(MaterialPageRoute(
