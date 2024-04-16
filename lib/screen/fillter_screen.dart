@@ -6,87 +6,57 @@ import 'package:mealsapp/providers/filter_provider.dart';
 // import '../widgets/main_drawer...dart';
 // import 'tabs.dart';
 
-class FilterScreen extends ConsumerStatefulWidget {
+class FilterScreen extends ConsumerWidget {
   const FilterScreen({
     super.key,
   });
 
   @override
-  ConsumerState<FilterScreen> createState() => _FilterScreenState();
-}
-
-class _FilterScreenState extends ConsumerState<FilterScreen> {
-  var _isGlutenFreemels = false;
-  var _isLactoseFreemels = false;
-  var _isVeganFreemels = false;
-  var _isVegetarianFreemels = false;
-
-  @override
-  void initState() {
-    final curentFilter = ref.read(fiterProvider);
-    _isGlutenFreemels = curentFilter[Filter.glutenFree]!;
-    _isLactoseFreemels = curentFilter[Filter.lactoseFree]!;
-    _isVeganFreemels = curentFilter[Filter.veganFree]!;
-    _isVegetarianFreemels = curentFilter[Filter.vegetarianFree]!;
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final filterMap = ref.watch(fiterProvider);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Youer Filters'),
       ),
-      body: PopScope(
-        onPopInvoked: (didPop) {
-          ref.read(fiterProvider.notifier).setFilters({
-            Filter.glutenFree: _isGlutenFreemels,
-            Filter.lactoseFree: _isLactoseFreemels,
-            Filter.vegetarianFree: _isVegetarianFreemels,
-            Filter.veganFree: _isVeganFreemels,
-          });
-          // Navigator.of(context).pop();
-        },
-        child: Column(
-          children: [
-            SwitchlistTile(
-              isvalue: _isGlutenFreemels,
-              titleText: "Gloten",
-              isLLocal: (localvar) {
-                setState(() {
-                  _isGlutenFreemels = localvar;
-                });
-              },
-            ),
-            SwitchlistTile(
-              isvalue: _isLactoseFreemels,
-              titleText: "Lactose",
-              isLLocal: (localvar) {
-                setState(() {
-                  _isLactoseFreemels = localvar;
-                });
-              },
-            ),
-            SwitchlistTile(
-              isvalue: _isVeganFreemels,
-              titleText: "Vegan",
-              isLLocal: (localvar) {
-                setState(() {
-                  _isVeganFreemels = localvar;
-                });
-              },
-            ),
-            SwitchlistTile(
-              isvalue: _isVegetarianFreemels,
-              titleText: "Vegetarian",
-              isLLocal: (localvar) {
-                setState(() {
-                  _isVegetarianFreemels = localvar;
-                });
-              },
-            ),
-          ],
-        ),
+      body: Column(
+        children: [
+          SwitchlistTile(
+            isvalue: filterMap[Filter.glutenFree]!,
+            titleText: "Gloten",
+            isLLocal: (localvar) {
+              ref
+                  .read(fiterProvider.notifier)
+                  .setFilter(Filter.glutenFree, localvar);
+            },
+          ),
+          SwitchlistTile(
+            isvalue: filterMap[Filter.lactoseFree]!,
+            titleText: "Lactose",
+            isLLocal: (localvar) {
+              ref
+                  .read(fiterProvider.notifier)
+                  .setFilter(Filter.lactoseFree, localvar);
+            },
+          ),
+          SwitchlistTile(
+            isvalue: filterMap[Filter.veganFree]!,
+            titleText: "Vegan",
+            isLLocal: (localvar) {
+              ref
+                  .read(fiterProvider.notifier)
+                  .setFilter(Filter.veganFree, localvar);
+            },
+          ),
+          SwitchlistTile(
+            isvalue: filterMap[Filter.vegetarianFree]!,
+            titleText: "Vegetarian",
+            isLLocal: (localvar) {
+              ref
+                  .read(fiterProvider.notifier)
+                  .setFilter(Filter.vegetarianFree, localvar);
+            },
+          ),
+        ],
       ),
     );
   }

@@ -5,9 +5,7 @@ import 'mealscreen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../widgets/main_drawer...dart';
-import '../providers/meals_providers.dart';
 import '../providers/favorite_proviiders.dart';
-
 import '../providers/filter_provider.dart';
 
 const kFilterMeals = {
@@ -46,23 +44,7 @@ class _TapsSceenState extends ConsumerState<TapsSceen> {
 
   @override
   Widget build(BuildContext context) {
-    final meals = ref.watch(mealsProvider);
-    final selectedMeals = ref.watch(fiterProvider);
-    final avaibleMeal = meals.where((element) {
-      if (selectedMeals[Filter.glutenFree]! && !element.isGlutenFree) {
-        return false;
-      }
-      if (selectedMeals[Filter.lactoseFree]! && !element.isLactoseFree) {
-        return false;
-      }
-      if (selectedMeals[Filter.vegetarianFree]! && !element.isVegetarian) {
-        return false;
-      }
-      if (selectedMeals[Filter.veganFree]! && !element.isVegan) {
-        return false;
-      }
-      return true;
-    }).toList();
+    final avaibleMeal = ref.watch(avaiableMeallsProvider);
 
     Widget activePage = GategorieScreen(
       avaibleMeals: avaibleMeal,
