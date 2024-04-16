@@ -1,21 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:mealsapp/models/meals.dart';
 
-class MealDetails extends StatelessWidget {
-  const MealDetails(
-      {super.key, required this.meal, required this.doggleMealStasus});
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../providers/favorite_proviiders.dart';
+
+class MealDetails extends ConsumerWidget {
+  const MealDetails({
+    super.key,
+    required this.meal,
+  });
 
   final Meal meal;
-  final void Function(Meal meal) doggleMealStasus;
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         title: Text(meal.title),
         actions: [
           IconButton(
             onPressed: () {
-              doggleMealStasus(meal);
+              final isaddornot = ref
+                  .read(favoriteMealsProvider.notifier)
+                  .toggleFavoriteMealsStatus(meal);
+              ScaffoldMessenger.of(context).clearSnackBars();
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(isaddornot ? 'add Meal' : 'Remove Meal'),
+                ),
+              );
             },
             icon: const Icon(Icons.star),
           ),
